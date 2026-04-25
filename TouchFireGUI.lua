@@ -61,8 +61,8 @@ openCorner.Parent = openButton
 -- ============================================
 local mainFrame = Instance.new("Frame")
 mainFrame.Name = "MainFrame"
-mainFrame.Size = UDim2.new(0, 220, 0, 195)
-mainFrame.Position = UDim2.new(0, 12, 0.5, -97)
+mainFrame.Size = UDim2.new(0, 220, 0, 240)
+mainFrame.Position = UDim2.new(0, 12, 0.5, -120)
 mainFrame.BackgroundColor3 = BG_DARK
 mainFrame.BorderSizePixel = 0
 mainFrame.Parent = screenGui
@@ -283,4 +283,27 @@ autoFarmBtn.MouseButton1Click:Connect(function()
         autoFarmBtn.BackgroundColor3 = RED
         autoFarmBtn.Text = "OFF"
     end
+end)
+
+-- ============================================
+-- Destroy GUI button
+-- ============================================
+local destroyBtn = Instance.new("TextButton")
+destroyBtn.Size = UDim2.new(1, -24, 0, 30)
+destroyBtn.Position = UDim2.new(0, 12, 0, 168)
+destroyBtn.BackgroundColor3 = Color3.fromRGB(150, 30, 30)
+destroyBtn.Text = "Destroy GUI"
+destroyBtn.TextColor3 = TEXT_WHITE
+destroyBtn.Font = Enum.Font.GothamBold
+destroyBtn.TextSize = 13
+destroyBtn.Parent = mainFrame
+
+local destroyCorner = Instance.new("UICorner")
+destroyCorner.CornerRadius = UDim.new(0, 8)
+destroyCorner.Parent = destroyBtn
+
+destroyBtn.MouseButton1Click:Connect(function()
+    autoWinActive = false
+    autoFarmArenaActive = false
+    screenGui:Destroy()
 end)
