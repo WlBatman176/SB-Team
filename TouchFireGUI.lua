@@ -224,7 +224,7 @@ openButton.MouseButton1Click:Connect(function()
 end)
 
 -- ============================================
--- Auto Win toggle (fires Button16 TouchInterest)
+-- Auto Win toggle (teleports player to Button16)
 -- ============================================
 autoWinBtn.MouseButton1Click:Connect(function()
     autoWinActive = not autoWinActive
@@ -237,9 +237,10 @@ autoWinBtn.MouseButton1Click:Connect(function()
                     local button = workspace.Buttons.Button16
                     local winsVal = button and button:FindFirstChild("Wins")
                     if winsVal and tonumber(winsVal.Value) == EXPECTED_WINS then
-                        firetouchinterest(player.Character:FindFirstChild("HumanoidRootPart"), button, 0)
-                        task.wait()
-                        firetouchinterest(player.Character:FindFirstChild("HumanoidRootPart"), button, 1)
+                        local hrp = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+                        if hrp then
+                            hrp.CFrame = button.CFrame
+                        end
                     end
                 end)
                 task.wait(0.1)
