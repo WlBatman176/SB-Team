@@ -1,6 +1,6 @@
 -- TouchFire GUI Script
 -- Toggle button (Green = ON / Red = OFF)
--- Fires workspace.Buttons:GetChildren()[13].TouchInterest infinitely when ON
+-- Fires workspace.Buttons.Button16.TouchInterest infinitely when ON
 
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
@@ -15,13 +15,13 @@ screenGui.Parent = player:WaitForChild("PlayerGui")
 -- Create toggle button
 local toggleButton = Instance.new("TextButton")
 toggleButton.Name = "ToggleButton"
-toggleButton.Size = UDim2.new(0, 120, 0, 40)
+toggleButton.Size = UDim2.new(0, 70, 0, 28)
 toggleButton.Position = UDim2.new(0, 10, 0.5, -20)
 toggleButton.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
 toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 toggleButton.Text = "OFF"
 toggleButton.Font = Enum.Font.GothamBold
-toggleButton.TextSize = 18
+toggleButton.TextSize = 13
 toggleButton.Parent = screenGui
 
 -- Rounded corners
@@ -81,15 +81,11 @@ end)
 while true do
     if active then
         pcall(function()
-            local button = workspace.Buttons:GetChildren()[13]
+            local button = workspace.Buttons.Button16
             if button then
-                local touchInterest = button:FindFirstChildWhichIsA("TouchTransmitter")
-                    or button:FindFirstChild("TouchInterest")
-                if touchInterest then
-                    firetouchinterest(player.Character:FindFirstChild("HumanoidRootPart"), button, 0)
-                    task.wait()
-                    firetouchinterest(player.Character:FindFirstChild("HumanoidRootPart"), button, 1)
-                end
+                firetouchinterest(player.Character:FindFirstChild("HumanoidRootPart"), button, 0)
+                task.wait()
+                firetouchinterest(player.Character:FindFirstChild("HumanoidRootPart"), button, 1)
             end
         end)
     end
