@@ -1,9 +1,11 @@
 -- TouchFire GUI Script
 -- Toggle button (Green = ON / Red = OFF)
--- Fires workspace.Buttons.Button16.TouchInterest infinitely when ON
+-- Fires workspace.Buttons.Button16.TouchInterest + Auto Train Arena Rebirth when ON
 
 local Players = game:GetService("Players")
+local RS = game:GetService("ReplicatedStorage")
 local player = Players.LocalPlayer
+local Remotes = RS:WaitForChild("Remotes")
 
 -- Create ScreenGui
 local screenGui = Instance.new("ScreenGui")
@@ -71,13 +73,29 @@ toggleButton.MouseButton1Click:Connect(function()
     if active then
         toggleButton.BackgroundColor3 = Color3.fromRGB(50, 200, 50)
         toggleButton.Text = "ON"
+
+        -- Start Auto Train Arena Rebirth loop in a separate thread
+        task.spawn(function()
+            while active do
+                pcall(function()
+                    local trainArea = workspace:FindFirstChild("Train Area")
+                    if trainArea then
+                        local arenaNode = trainArea:FindFirstChild("Rebirth")
+                        if arenaNode then
+                            Remotes:WaitForChild("MHP"):FireServer(arenaNode)
+                        end
+                    end
+                end)
+                task.wait(0.1)
+            end
+        end)
     else
         toggleButton.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
         toggleButton.Text = "OFF"
     end
 end)
 
--- Main loop: fire TouchTransmitter when active
+-- Main loop: fire TouchTransmitter (Button16) when active
 while true do
     if active then
         pcall(function()
