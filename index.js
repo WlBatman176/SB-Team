@@ -7,9 +7,6 @@ const fs = require("fs");
 const path = require("path");
 const ms = require('ms');
 
-const claimedTickets = new Map()
-
-
 const PREFIX = "+";
 const TOKEN = process.env.DISCORD_BOT_TOKEN; 
 const BOT_OWNER_ID = "1402150731317903373"; 
@@ -28,6 +25,7 @@ const TICKETS_FILE = path.join(DATA_DIR, "tickets.json");
 const BLRANK_FILE = path.join(DATA_DIR, "blrank.json");
 const WLSALON_FILE = path.join(DATA_DIR, "wlsalon.json");
 const OWN_FILE = path.join(DATA_DIR, "own.json");
+const CLAIMED_FILE = path.join(DATA_DIR, "claimed.json");
 
 const GIVEAWAY_BYPASS_ROLE = "1496455010895007897";
 
@@ -41,6 +39,8 @@ function loadJSON(file) {
         return {};
     }
 }
+
+const claimedTickets = new Map(Object.entries(loadJSON(CLAIMED_FILE)));
 
 function saveJSON(file, data) {
     fs.writeFileSync(file, JSON.stringify(data, null, 4));
