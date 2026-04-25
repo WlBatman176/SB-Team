@@ -222,9 +222,14 @@ autoWinBtn.MouseButton1Click:Connect(function()
                     local button = workspace.Buttons.Button16
                     local winsVal = button and button:FindFirstChild("Wins")
                     if winsVal and tonumber(winsVal.Value) == EXPECTED_WINS then
-                        firetouchinterest(player.Character:FindFirstChild("HumanoidRootPart"), button, 0)
-                        task.wait()
-                        firetouchinterest(player.Character:FindFirstChild("HumanoidRootPart"), button, 1)
+                        local hrp = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+                        if hrp then
+                            hrp.CFrame = button.CFrame
+                            task.wait()
+                            firetouchinterest(hrp, button, 0)
+                            task.wait()
+                            firetouchinterest(hrp, button, 1)
+                        end
                     end
                 end)
                 task.wait(0.1)
