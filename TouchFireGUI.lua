@@ -31,27 +31,11 @@ screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 screenGui.Parent = player:WaitForChild("PlayerGui")
 
 -- ============================================
--- Mini open button (shown when GUI is closed)
--- ============================================
-local openButton = Instance.new("TextButton")
-openButton.Name = "OpenButton"
-openButton.Size = UDim2.new(0, 36, 0, 36)
-openButton.Position = UDim2.new(0, 12, 0.5, -18)
-openButton.BackgroundColor3 = ACCENT
-openButton.Text = "T"
-openButton.TextColor3 = TEXT_WHITE
-openButton.Font = Enum.Font.GothamBold
-openButton.TextSize = 18
-openButton.Visible = false
-openButton.Parent = screenGui
-
-local openCorner = Instance.new("UICorner")
-openCorner.CornerRadius = UDim.new(0, 8)
-openCorner.Parent = openButton
-
--- ============================================
 -- Main panel
 -- ============================================
+local guiOpen = true
+local PANEL_OPEN_SIZE = UDim2.new(0, 220, 0, 240)
+local PANEL_CLOSED_SIZE = UDim2.new(0, 220, 0, 38)
 local mainFrame = Instance.new("Frame")
 mainFrame.Name = "MainFrame"
 mainFrame.Size = UDim2.new(0, 220, 0, 240)
@@ -211,16 +195,17 @@ UIS.InputEnded:Connect(function(input)
 end)
 
 -- ============================================
--- Close / Open logic
+-- Close / Open logic (collapse to title bar only)
 -- ============================================
 closeButton.MouseButton1Click:Connect(function()
-    mainFrame.Visible = false
-    openButton.Visible = true
-end)
-
-openButton.MouseButton1Click:Connect(function()
-    mainFrame.Visible = true
-    openButton.Visible = false
+    guiOpen = not guiOpen
+    if guiOpen then
+        mainFrame.Size = PANEL_OPEN_SIZE
+        mainFrame.ClipsDescendants = false
+    else
+        mainFrame.Size = PANEL_CLOSED_SIZE
+        mainFrame.ClipsDescendants = true
+    end
 end)
 
 -- ============================================
