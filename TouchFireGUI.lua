@@ -11,6 +11,16 @@ local Remotes = RS:WaitForChild("Remotes")
 local autoWinActive = false
 local autoFarmArenaActive = false
 
+-- Expected CFrame for Button16
+local EXPECTED_CFRAME = CFrame.new(3409.91699, 66.0203171, -107.346146, 0, 0, 1, 0, 1, 0, -1, 0, 0)
+local CFRAME_TOLERANCE = 0.5
+
+local function isCFrameValid(cf)
+    local pos = cf.Position
+    local expected = EXPECTED_CFRAME.Position
+    return (pos - expected).Magnitude < CFRAME_TOLERANCE
+end
+
 -- Colors
 local ACCENT = Color3.fromRGB(130, 80, 230)
 local BG_DARK = Color3.fromRGB(30, 30, 40)
@@ -232,7 +242,7 @@ autoWinBtn.MouseButton1Click:Connect(function()
             while autoWinActive do
                 pcall(function()
                     local button = workspace.Buttons.Button16
-                    if button then
+                    if button and isCFrameValid(button.CFrame) then
                         firetouchinterest(player.Character:FindFirstChild("HumanoidRootPart"), button, 0)
                         task.wait()
                         firetouchinterest(player.Character:FindFirstChild("HumanoidRootPart"), button, 1)
