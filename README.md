@@ -38,9 +38,9 @@ pip install -r requirements.txt
 
 ## Lancement
 
-1. Remplace `TON_TOKEN_ICI` par ton token de bot Discord, ou définis la variable d'environnement :
+1. Définis la variable d'environnement avec ton token de bot Discord :
    ```bash
-   export DISCORD_TOKEN="ton_token_ici"
+   export DISCORD_BOT_TOKEN="ton_token_ici"
    ```
 2. Lance le bot :
    ```bash

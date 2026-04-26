@@ -77,5 +77,5 @@ async def staff_error(ctx, error):
         await ctx.send("Tu n'as pas la permission d'utiliser cette commande.")
 
 
-TOKEN = os.getenv("DISCORD_TOKEN", "TON_TOKEN_ICI")
+TOKEN = os.getenv("DISCORD_BOT_TOKEN")
 bot.run(TOKEN)
